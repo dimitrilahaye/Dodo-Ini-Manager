@@ -1,7 +1,0 @@
-vendor/
-composer.lock
-.DS_Store
-tests/report
-docs/phpdoc-cache-2e
-docs/phpdoc-cache-a8
-docs/structure.xml
