@@ -270,12 +270,18 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
   }
 
 /*
-function set($section, array($element, array($content,...)));
-function setKey($section, array($element, array($content,...)));
-function writeInKey($section, $element, array($content,...));
-function rewriteInKey($section, $element, array($content,...));
+TODO : function set($section, array($element, array($content,...)));
+TODO : function setKey($section, array($element, array($content,...)));
+TODO : function writeInKey($section, $element, array($content,...));
+TODO : function rewriteInKey($section, $element, array($content,...));
 
-check exception (element or section of file does not exist)
+TODO : getBefore
+TODO : hasBefore
+
+TODO : builderFromArray
+TODO : builderFromJson
+
+TODO : check exception (element or section of file does not exist)
 
 */
 
