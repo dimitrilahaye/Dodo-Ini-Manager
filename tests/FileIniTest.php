@@ -277,9 +277,14 @@ TODO : function rewriteInKey($section, $element, array($content,...));
 
 TODO : getBefore
 TODO : hasBefore
+TODO : idem for element
 
 TODO : builderFromArray
 TODO : builderFromJson
+
+TODO : prepend (put section/element at the top of the file)
+TODO : append (put section/element at the bottom of the file)
+TODO : idem for element
 
 TODO : check exception (element or section of file does not exist)
 
