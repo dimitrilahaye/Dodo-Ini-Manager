@@ -164,7 +164,7 @@ FileIni::move( string $path ): void
 Get a section contained into this file.
 
 ```php
-FileIni::get( string $section ): mixed[]
+FileIni::get( string $section ): array&lt;mixed,mixed&gt;
 ```
 
 
@@ -190,7 +190,7 @@ Returns the section from parsed file.
 Add a new section to this file. You are able to add an array of sub-keys for this new section.
 
 ```php
-FileIni::set( string $section,  $array = null ): void
+FileIni::set( string $section, array&lt;mixed,mixed&gt; $array = null ): void
 ```
 
 
@@ -201,7 +201,7 @@ FileIni::set( string $section,  $array = null ): void
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | `$section` | **string** | The section's key to add. |
-| `$array` | **** |  |
+| `$array` | **array<mixed,mixed>** | An array of key => value in case we want to write element to this new section |
 
 
 
@@ -330,7 +330,7 @@ True if this section has another one after it, false if not.
 Get the next section after the section'key passed in argument.
 
 ```php
-FileIni::getNext( string $section ): mixed[]
+FileIni::getNext( string $section ): array&lt;mixed,mixed&gt;
 ```
 
 
@@ -385,7 +385,7 @@ argument in order to add many elements into the target section or just a string 
 sub-key.
 
 ```php
-FileIni::setKey( string $section, mixed[] $element ): void
+FileIni::setKey( string $section, array&lt;mixed,mixed&gt; $element ): void
 ```
 
 
@@ -432,7 +432,7 @@ FileIni::writeInKey( string $section, string $element, string $content ): void
 Modify the element's key of a section into this file.
 
 ```php
-FileIni::rewriteKey( string $section, string $element,  $newElement ): void
+FileIni::rewriteKey( string $section, string $element, string $newElement ): void
 ```
 
 
@@ -444,7 +444,7 @@ FileIni::rewriteKey( string $section, string $element,  $newElement ): void
 |-----------|------|-------------|
 | `$section` | **string** | The section's key of the target element. |
 | `$element` | **string** | The target element. |
-| `$newElement` | **** |  |
+| `$newElement` | **string** | The new name for the target element. |
 
 
 
@@ -580,7 +580,7 @@ Returns the following element from parsed file.
 Move the element into another section. The original element is deleted.
 
 ```php
-FileIni::moveKey( string $section, string $element,  $newSection ): void
+FileIni::moveKey( string $section, string $element, string $newSection ): void
 ```
 
 
@@ -590,9 +590,9 @@ FileIni::moveKey( string $section, string $element,  $newSection ): void
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `$section` | **string** | The section's key where to move the element. |
+| `$section` | **string** | The section's key of the target element. |
 | `$element` | **string** | The element's key to move. |
-| `$newSection` | **** |  |
+| `$newSection` | **string** | The section's key where to move the element. |
 
 
 
