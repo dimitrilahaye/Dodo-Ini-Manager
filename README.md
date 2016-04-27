@@ -164,7 +164,7 @@ FileIni::move( string $path ): void
 Get a section contained into this file.
 
 ```php
-FileIni::get( string $section ): array&lt;mixed,mixed&gt;
+FileIni::get( string $section ): mixed[]
 ```
 
 
@@ -190,7 +190,7 @@ Returns the section from parsed file.
 Add a new section to this file. You are able to add an array of sub-keys for this new section.
 
 ```php
-FileIni::set( string $section, array&lt;mixed,mixed&gt; $array = null ): void
+FileIni::set( string $section, mixed[] $array = null ): void
 ```
 
 
@@ -330,7 +330,7 @@ True if this section has another one after it, false if not.
 Get the next section after the section'key passed in argument.
 
 ```php
-FileIni::getNext( string $section ): array&lt;mixed,mixed&gt;
+FileIni::getNext( string $section ): mixed[]
 ```
 
 
@@ -385,7 +385,7 @@ argument in order to add many elements into the target section or just a string 
 sub-key.
 
 ```php
-FileIni::setKey( string $section, array&lt;mixed,mixed&gt; $element ): void
+FileIni::setKey( string $section, mixed[] $element ): void
 ```
 
 
