@@ -186,7 +186,7 @@ class FileIni {
 	*	</pre>
 	*
 	* @param string $section The section's key to add.
-	* @param mixed[] $items Array structure to count the elements of.
+	* @param mixed[] $array An array of key => value in case we want to write element to this new section
 	*
 	* @return void
 	*/
@@ -475,7 +475,7 @@ class FileIni {
 	*
 	* @param string $section The section's key of the target element.
 	* @param string $element The target element.
-	* @param string $content The new name for the target element.
+	* @param string $newElement The new name for the target element.
 	*
 	* @return void
 	*/
@@ -651,7 +651,7 @@ class FileIni {
 	*
 	* @param string $section The section's key of the target element.
 	* @param string $element The element's key to move.
-	* @param string $section The section's key where to move the element.
+	* @param string $newSection The section's key where to move the element.
 	*
 	* @return void
 	*/
