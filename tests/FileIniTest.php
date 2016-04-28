@@ -301,6 +301,74 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
     }
   }
 
+  public function testPrependSection(){
+    $this->fileIni->prepend("java");
+    $body = parse_ini_file($this->fileIni->getPath(), true);
+    $i = 0;
+    foreach ($body as $key => $value) {
+      if($i == 0){
+        $this->assertTrue(array_key_exists("ide", $body[$key]));
+        $this->assertTrue(array_key_exists("framework", $body[$key]));
+        $this->assertTrue(array_key_exists("orm", $body[$key]));
+        $this->assertEquals("eclipse", $body[$key]["ide"]);
+        $this->assertEquals("jee", $body[$key]["framework"]);
+        $this->assertEquals("hibernate", $body[$key]["orm"]);
+      }
+      $i++;
+    }
+  }
+
+  public function testAppendSection(){
+    $this->fileIni->append("php");
+    $body = parse_ini_file($this->fileIni->getPath(), true);
+    $i = 0;
+    $j = sizeof($body);
+    foreach ($body as $key => $value) {
+      if($i == ($j - 1)){
+        $this->assertTrue(array_key_exists("ide", $body[$key]));
+        $this->assertTrue(array_key_exists("framework", $body[$key]));
+        $this->assertTrue(array_key_exists("orm", $body[$key]));
+        $this->assertEquals("phpstorm", $body[$key]["ide"]);
+        $this->assertEquals("symfony", $body[$key]["framework"]);
+        $this->assertEquals("doctrine", $body[$key]["orm"]);
+      }
+      $i++;
+    }
+  }
+
+  public function testPrependElement(){
+    $this->fileIni->prependKey("java", "orm");
+    $body = parse_ini_file($this->fileIni->getPath(), true);
+    $i = 0;
+    foreach ($body as $key => $value) {
+      if($key == "java"){
+        foreach ($value as $k => $v) {
+          if($i == 0){
+            $this->assertEquals("hibernate", $body[$key]["orm"]);
+          }
+          $i++;
+        }
+      }
+    }
+  }
+
+  public function testAppendElement(){
+    $this->fileIni->appendKey("java", "orm");
+    $body = parse_ini_file($this->fileIni->getPath(), true);
+    $i = 0;
+    foreach ($body as $key => $value) {
+      if($key == "java"){
+        $j = sizeof($value);
+        foreach ($value as $k => $v) {
+          if($i == ($j - 1)){
+            $this->assertEquals("hibernate", $body[$key]["orm"]);
+          }
+          $i++;
+        }
+      }
+    }
+  }
+
 /*
 TODO : function set($section, array($element, array($content,...)));
 TODO : function setKey($section, array($element, array($content,...)));
@@ -311,10 +379,6 @@ TODO : arrayTo
 TODO : jsonTo
 TODO : toArray
 TODO : toJson
-
-TODO : prepend (put section/element at the top of the file/section)
-TODO : append (put section/element at the bottom of the file/section)
-TODO : idem for element
 
 TODO : check exception (element or section of file does not exist)
 

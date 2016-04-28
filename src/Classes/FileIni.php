@@ -12,7 +12,7 @@ namespace DodoIniManager\Classes;
 *
 * @author Dimitri Lahaye <contact@dimitrilahaye.net>
 * @license http://www.dbad-license.org/ DBAD Public License
-* @version 0.1.1-alpha1
+* @version 0.1.2-beta
 *
 * @package DodoIniManager
 * @subpackage Classes
@@ -224,6 +224,59 @@ class FileIni {
 		$body = parse_ini_file($this->path, true);
 		unset($body[$section]);
 		$this->updateFile($body);
+	}
+
+	/**
+	* Move an entire section at the top of this file.ini
+	*
+	* @param string $section The section's key of the section to move.
+	*
+	* @return void
+	*/
+	public function prepend($section){
+		$body = parse_ini_file($this->path, true);
+		$_section = $this->get($section);
+		$temp_body = [];
+		$i = 0;
+		foreach ($body as $key => $value) {
+			if($key != $section){
+				if($i == 0){
+					$temp_body[$section] = $_section;
+					$temp_body[$key] = $value;
+				} else {
+					$temp_body[$key] = $value;
+				}
+			}
+			$i++;
+		}
+		$this->updateFile($temp_body);
+	}
+
+	/**
+	* Move an entire section at the bottom of this file.ini
+	*
+	* @param string $section The section's key of the section to move.
+	*
+	* @return void
+	*/
+	public function append($section){
+		$body = parse_ini_file($this->path, true);
+		$_section = $this->get($section);
+		$temp_body = [];
+		$i = 0;
+		$j = sizeof($body);
+		foreach ($body as $key => $value) {
+			if($key != $section){
+				if($i == ($j - 1)){
+					$temp_body[$key] = $value;
+					$temp_body[$section] = $_section;
+				} else {
+					$temp_body[$key] = $value;
+				}
+			}
+			$i++;
+		}
+		$this->updateFile($temp_body);
 	}
 
 	/**
@@ -832,6 +885,114 @@ class FileIni {
 		}
 		$this->updateFile($temp_body);
 	}
+
+	/**
+	* Move an entire element at the top of its section.
+	*
+	* @param string $section The section's key of the section's element to move.
+	* @param string $element The element's key to move.
+	*
+	* @return void
+	*/
+	public function prependKey($section, $element){
+		$body = parse_ini_file($this->path, true);
+		$i = 0;
+		foreach ($body as $key => $value) {
+			if($key == $section){
+				foreach ($value as $k => $v) {
+					if($i == 0){
+						$this->beforeKey($section, $element, $k);
+					}
+					$i++;
+				}
+			}
+		}
+	}
+
+	/**
+	* Move an entire element at the bottom of its section.
+	*
+	* @param string $section The section's key of the section's element to move.
+	* @param string $element The element's key to move.
+	*
+	* @return void
+	*/
+	public function appendKey($section, $element){
+		$body = parse_ini_file($this->path, true);
+		$i = 0;
+		$j = sizeof($body);
+		foreach ($body as $key => $value) {
+			if($key == $section){
+				foreach ($value as $k => $v) {
+					if($i == ($j - 1)){
+						$this->afterKey($section, $element, $k);
+					}
+					$i++;
+				}
+			}
+		}
+	}
+
+
+
+
+
+
+
+
+
+	// /**
+	// * Move an entire section at the top of this file.ini
+	// *
+	// * @param string $section The section's key of the section to move.
+	// *
+	// * @return void
+	// */
+	// public function prepend($section){
+	// 	$body = parse_ini_file($this->path, true);
+	// 	$_section = $this->get($section);
+	// 	$temp_body = [];
+	// 	$i = 0;
+	// 	foreach ($body as $key => $value) {
+	// 		if($key != $section){
+	// 			if($i == 0){
+	// 				$temp_body[$section] = $_section;
+	// 				$temp_body[$key] = $value;
+	// 			} else {
+	// 				$temp_body[$key] = $value;
+	// 			}
+	// 		}
+	// 		$i++;
+	// 	}
+	// 	$this->updateFile($temp_body);
+	// }
+
+	// *
+	// * Move an entire section at the bottom of this file.ini
+	// *
+	// * @param string $section The section's key of the section to move.
+	// *
+	// * @return void
+	
+	// public function append($section){
+	// 	$body = parse_ini_file($this->path, true);
+	// 	$_section = $this->get($section);
+	// 	$temp_body = [];
+	// 	$i = 0;
+	// 	$j = sizeof($body);
+	// 	foreach ($body as $key => $value) {
+	// 		if($key != $section){
+	// 			if($i == ($j - 1)){
+	// 				$temp_body[$key] = $value;
+	// 				$temp_body[$section] = $_section;
+	// 			} else {
+	// 				$temp_body[$key] = $value;
+	// 			}
+	// 		}
+	// 		$i++;
+	// 	}
+	// 	$this->updateFile($temp_body);
+	// }
 
 	#############################################################################
 	################ PRIVATE API ################################################
