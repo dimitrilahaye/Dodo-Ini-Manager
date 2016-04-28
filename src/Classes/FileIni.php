@@ -53,19 +53,6 @@ class FileIni {
 	}
 
 	/**
-	* @internal
-	*
-	* Set the path of FileIni object.
-	*
-	* @param string $path File's path for this FileIni object.
-	*
-	* @return void
-	*/
-	public function setPath($path){
-		$this->path = $path;
-	}
-
-	/**
 	* Get the path for this FileIni object.
 	*
 	* @return string Returns the file's path for this FileIni object.
