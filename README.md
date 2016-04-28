@@ -16,10 +16,14 @@ And at least, manage your files.ini ! Create them, update their sections, etc.
     * [set](#set)
     * [rewrite](#rewrite)
     * [rm](#rm)
+    * [prepend](#prepend)
+    * [append](#append)
     * [before](#before)
     * [after](#after)
     * [hasNext](#hasnext)
+    * [hasBefore](#hasbefore)
     * [getNext](#getnext)
+    * [getBefore](#getbefore)
     * [getKey](#getkey)
     * [setKey](#setkey)
     * [writeInKey](#writeinkey)
@@ -28,11 +32,14 @@ And at least, manage your files.ini ! Create them, update their sections, etc.
     * [rmInKey](#rminkey)
     * [rmKey](#rmkey)
     * [keyHasNext](#keyhasnext)
+    * [keyHasBefore](#keyhasbefore)
     * [getNextKey](#getnextkey)
+    * [getBeforeKey](#getbeforekey)
     * [moveKey](#movekey)
     * [beforeKey](#beforekey)
     * [afterKey](#afterkey)
-* [Coming Soon](#-coming-soon)
+    * [prependKey](#prependkey)
+    * [appendKey](#appendkey)
 
 ## FileIni
 
@@ -253,6 +260,50 @@ FileIni::rm( string $section ): void
 
 ---
 
+### prepend
+
+Move an entire section at the top of this file.ini
+
+```php
+FileIni::prepend( string $section ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$section` | **string** | The section's key of the section to move. |
+
+
+
+
+---
+
+### append
+
+Move an entire section at the bottom of this file.ini
+
+```php
+FileIni::append( string $section ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$section` | **string** | The section's key of the section to move. |
+
+
+
+
+---
+
 ### before
 
 Move an entire section before another one.
@@ -325,6 +376,32 @@ True if this section has another one after it, false if not.
 
 ---
 
+### hasBefore
+
+Check if this section has another section before it.
+
+```php
+FileIni::hasBefore( string $section ): boolean
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$section` | **string** | The section's key we want to evaluate. |
+
+
+**Return Value:**
+
+True if this section has another one before it, false if not.
+
+
+
+---
+
 ### getNext
 
 Get the next section after the section'key passed in argument.
@@ -346,6 +423,32 @@ FileIni::getNext( string $section ): mixed[]
 **Return Value:**
 
 Returns the following section from parsed file.
+
+
+
+---
+
+### getBefore
+
+Get the next section before the section'key passed in argument.
+
+```php
+FileIni::getBefore( string $section ): mixed[]
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$section` | **string** | The section's key that we want to return the previous one. |
+
+
+**Return Value:**
+
+Returns the previous section from parsed file.
 
 
 
@@ -548,6 +651,33 @@ True if this element has another one after it, false if not.
 
 ---
 
+### keyHasBefore
+
+Check if this section's element has another element before it.
+
+```php
+FileIni::keyHasBefore( string $section, string $element ): boolean
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$section` | **string** | The section's key of the target element. |
+| `$element` | **string** | The target element to evaluate. |
+
+
+**Return Value:**
+
+True if this element has another one before it, false if not.
+
+
+
+---
+
 ### getNextKey
 
 Get the next element after the element'key passed in argument.
@@ -570,6 +700,33 @@ FileIni::getNextKey( string $section, string $element ): string
 **Return Value:**
 
 Returns the following element from parsed file.
+
+
+
+---
+
+### getBeforeKey
+
+Get the element before the element'key passed in argument.
+
+```php
+FileIni::getBeforeKey( string $section, string $element ): string
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$section` | **string** | The section's key of the target element. |
+| `$element` | **string** | The section's element's key that we want to return the previous one. |
+
+
+**Return Value:**
+
+Returns the previous element from parsed file.
 
 
 
@@ -641,6 +798,52 @@ FileIni::afterKey( string $section, string $element, string $after ): void
 | `$section` | **string** | The section's key of the element to move. |
 | `$element` | **string** | The element's key of the element to move. |
 | `$after` | **string** | The element's key after wich we want to move our element. |
+
+
+
+
+---
+
+### prependKey
+
+Move an entire element at the top of its section.
+
+```php
+FileIni::prependKey( string $section, string $element ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$section` | **string** | The section's key of the section's element to move. |
+| `$element` | **string** | The element's key to move. |
+
+
+
+
+---
+
+### appendKey
+
+Move an entire element at the bottom of its section.
+
+```php
+FileIni::appendKey( string $section, string $element ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$section` | **string** | The section's key of the section's element to move. |
+| `$element` | **string** | The element's key to move. |
 
 
 
