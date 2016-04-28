@@ -305,6 +305,26 @@ class FileIni {
 	}
 
 	/**
+	* Check if this section has another section before it.
+	*
+	* @param string $section The section's key we want to evaluate.
+	*
+	* @return boolean True if this section has another one before it, false if not.
+	*/
+	public function hasBefore($section){
+		$body = parse_ini_file($this->path, true);
+		$i = 0;
+		foreach ($body as $key => $value) {
+			if($key == $section){
+				if($i == 0){
+					return false;
+				}
+			}
+			$i++;
+		} return true;
+	}
+
+	/**
 	* Get the next section after the section'key passed in argument.
 	*
 	* @param string $section The section's key that we want to return the following.
@@ -320,6 +340,28 @@ class FileIni {
 		$i = 0;
 		foreach ($body as $key => $value) {
 			if($i == $index){
+				return $body[$key];
+			}
+			$i++;
+		} return false;
+	}
+
+	/**
+	* Get the next section before the section'key passed in argument.
+	*
+	* @param string $section The section's key that we want to return the previous one.
+	*
+	* @return mixed[] Returns the previous section from parsed file.
+	*/
+	public function getBefore($section){
+		$body = parse_ini_file($this->path, true);
+		if(!$this->hasBefore($section)){
+			return false;
+		}
+		$index = $this->sectionIndex($section);
+		$i = 0;
+		foreach ($body as $key => $value) {
+			if(($i + 1) == $index){
 				return $body[$key];
 			}
 			$i++;
@@ -620,6 +662,31 @@ class FileIni {
 	}
 
 	/**
+	* Check if this section's element has another element before it.
+	*
+	* @param string $section The section's key of the target element.
+	* @param string $element The target element to evaluate.
+	*
+	* @return boolean True if this element has another one before it, false if not.
+	*/
+	public function keyHasBefore($section, $element){
+		$body = parse_ini_file($this->path, true);
+		$i = 0;
+		foreach ($body as $key => $value) {
+			if($key == $section){
+				foreach ($value as $k => $v) {
+					if($k == $element){
+						if($i == 0){
+							return false;
+						}
+					}	
+					$i++;
+				}
+			}
+		} return true;
+	}
+
+	/**
 	* Get the next element after the element'key passed in argument.
 	*
 	* @param string $section The section's key of the target element.
@@ -638,7 +705,34 @@ class FileIni {
 			if($key == $section){
 				foreach ($value as $k => $v) {
 					if(($index + 1) == $i){
-						return $body[$key][$k];
+						return array($k => $v);
+					}
+					$i++;
+				}
+			}
+		} return false;
+	}
+
+	/**
+	* Get the element before the element'key passed in argument.
+	*
+	* @param string $section The section's key of the target element.
+	* @param string $element The section's element's key that we want to return the previous one.
+	*
+	* @return string Returns the previous element from parsed file.
+	*/
+	public function getBeforeKey($section, $element){
+		$body = parse_ini_file($this->path, true);
+		if(!$this->keyHasBefore($section, $element)){
+			return false;
+		}
+		$index = $this->elementIndex($section, $element);
+		$i = 0;
+		foreach ($body as $key => $value) {
+			if($key == $section){
+				foreach ($value as $k => $v) {
+					if(($i + 1) == $index){
+						return array($k => $v);
 					}
 					$i++;
 				}
@@ -809,7 +903,7 @@ class FileIni {
 		foreach ($body as $key => $value) {
 			if($key == $section){
 				foreach ($value as $k => $v) {
-					if($k = $element){
+					if($k == $element){
 						return $i;
 					}
 					$i++;

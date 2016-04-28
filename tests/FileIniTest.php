@@ -151,6 +151,11 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
     $this->assertFalse($this->fileIni->hasNext("js"));
   }
 
+  public function testSectionHasBefore(){
+    $this->assertTrue($this->fileIni->hasBefore("ruby"));
+    $this->assertFalse($this->fileIni->hasBefore("php"));
+  }
+
   public function testSectionGetNext(){
     $section = $this->fileIni->getNext("ruby");
     $this->assertTrue(array_key_exists("ide", $section));
@@ -160,6 +165,17 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals("ruby on rails", $section["framework"]);
     $this->assertEquals("ar", $section["orm"]);
     $this->assertFalse($this->fileIni->getNext("js"));
+  }
+
+  public function testSectionGetBefore(){
+    $section = $this->fileIni->getBefore("java");
+    $this->assertTrue(array_key_exists("ide", $section));
+    $this->assertTrue(array_key_exists("framework", $section));
+    $this->assertTrue(array_key_exists("orm", $section));
+    $this->assertEquals("phpstorm", $section["ide"]);
+    $this->assertEquals("symfony", $section["framework"]);
+    $this->assertEquals("doctrine", $section["orm"]);
+    $this->assertFalse($this->fileIni->getBefore("php"));
   }
 
   public function testGetElement(){
@@ -224,10 +240,26 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
     $this->assertFalse($this->fileIni->keyHasNext("bash", "orm"));
   }
 
+  public function testElementHasBefore(){
+    $this->assertTrue($this->fileIni->keyHasBefore("bash", "orm"));
+    $this->assertFalse($this->fileIni->keyHasBefore("bash", "ide"));
+  }
+
   public function testElementGetNext(){
     $element = $this->fileIni->getNextKey("bash", "ide");
-    $this->assertEquals("file system", $element);
+    $this->assertEquals(array("framework" => "file system"), $element);
     $this->assertFalse($this->fileIni->getNextKey("bash", "orm"));
+  }
+
+  public function testElementGetNext_2(){
+    $element = $this->fileIni->getNextKey("java", "framework");
+    $this->assertEquals(array("orm" => "hibernate"), $element);
+  }
+
+  public function testElementGetBefore(){
+    $element = $this->fileIni->getBeforeKey("bash", "orm");
+    $this->assertEquals(array("framework" => "file system"), $element);
+    $this->assertFalse($this->fileIni->getBeforeKey("java", "ide"));
   }
 
   public function testChangeElementSection(){
@@ -275,15 +307,13 @@ TODO : function setKey($section, array($element, array($content,...)));
 TODO : function writeInKey($section, $element, array($content,...));
 TODO : function rewriteInKey($section, $element, array($content,...));
 
-TODO : getBefore
-TODO : hasBefore
-TODO : idem for element
+TODO : arrayTo
+TODO : jsonTo
+TODO : toArray
+TODO : toJson
 
-TODO : builderFromArray
-TODO : builderFromJson
-
-TODO : prepend (put section/element at the top of the file)
-TODO : append (put section/element at the bottom of the file)
+TODO : prepend (put section/element at the top of the file/section)
+TODO : append (put section/element at the bottom of the file/section)
 TODO : idem for element
 
 TODO : check exception (element or section of file does not exist)
