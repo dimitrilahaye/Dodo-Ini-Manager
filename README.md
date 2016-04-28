@@ -902,7 +902,7 @@ FileIni::appendKey( string $section, string $element ): void
 >
 > - Add sub-array management
 >
-> - Add new cool methods
+> - Add new cool methods : suggestions are welcome and usefull ;)
 
 --------
 > This document was automatically generated from source code comments on 2016-04-27 using [phpDocumentor](http://www.phpdoc.org/) and [cvuorinen/phpdoc-markdown-public](https://github.com/cvuorinen/phpdoc-markdown-public)
