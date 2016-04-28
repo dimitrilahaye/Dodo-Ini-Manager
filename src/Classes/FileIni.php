@@ -12,7 +12,7 @@ namespace DodoIniManager\Classes;
 *
 * @author Dimitri Lahaye <contact@dimitrilahaye.net>
 * @license http://www.dbad-license.org/ DBAD Public License
-* @version 0.1.3-beta
+* @version 0.1.4-beta
 *
 * @package DodoIniManager
 * @subpackage Classes
