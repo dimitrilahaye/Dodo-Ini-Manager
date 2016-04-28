@@ -384,16 +384,6 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
     }
   }
 
-/*
-TODO : function set($section, array($element, array($content,...)));
-TODO : function setKey($section, array($element, array($content,...)));
-TODO : function writeInKey($section, $element, array($content,...));
-TODO : function rewriteInKey($section, $element, array($content,...));
-
-TODO : check exception (element or section of file does not exist)
-
-*/
-
   public function tearDown() {
     if(file_exists(COPY_FOLDER . __DS__ . "file_1.ini") && file_exists(COPY_FOLDER . __DS__ . "file_2.ini")){
       unlink(COPY_FOLDER . __DS__ . "file_1.ini");
@@ -433,3 +423,16 @@ TODO : check exception (element or section of file does not exist)
   }
   
 }
+
+/*
+
+TODO : function set($section, array($element, array($content,...)));
+TODO : function setKey($section, array($element, array($content,...)));
+TODO : function writeInKey($section, $element, array($content,...));
+TODO : function rewriteInKey($section, $element, array($content,...));
+
+TODO : check exception (element or section of file does not exist)
+==> check if file, section and element exist !
+==> check format of array for arrayTo method
+
+*/
