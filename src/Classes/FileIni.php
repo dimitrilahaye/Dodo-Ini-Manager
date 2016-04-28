@@ -12,7 +12,7 @@ namespace DodoIniManager\Classes;
 *
 * @author Dimitri Lahaye <contact@dimitrilahaye.net>
 * @license http://www.dbad-license.org/ DBAD Public License
-* @version 0.1.2-beta
+* @version 0.1.3-beta
 *
 * @package DodoIniManager
 * @subpackage Classes
@@ -129,6 +129,26 @@ class FileIni {
 		unlink($oldPath);
 	}
 
+	/**
+	* Update entire file with an array
+	*
+	* @param mixed[] $array The array content to update the file.
+	*
+	* @return void
+	*/
+	public function arrayTo($array){
+		$this->updateFile($array);
+	}
+
+	/**
+	* Get the parsed content of this file.
+	*
+	* @return mixed[] The parsed content of this file obtained with parse_ini_file() method.
+	*/
+	public function toArray(){
+		return parse_ini_file($this->path, true);
+	}
+
 	#############################################################################
 	################ SECTIONS ###################################################
 	#############################################################################
@@ -153,7 +173,7 @@ class FileIni {
 	* @return mixed[] Returns the section from parsed file.
 	*/
 	public function get($section){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		return $body[$section];
 	}
 
@@ -191,7 +211,7 @@ class FileIni {
 	* @return void
 	*/
 	public function set($section, $array = null){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		$body[$section] = array();
 		if($array != null){
 			$body[$section] = $array;
@@ -221,7 +241,7 @@ class FileIni {
 	* @return void
 	*/
 	public function rm($section){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		unset($body[$section]);
 		$this->updateFile($body);
 	}
@@ -234,7 +254,7 @@ class FileIni {
 	* @return void
 	*/
 	public function prepend($section){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		$_section = $this->get($section);
 		$temp_body = [];
 		$i = 0;
@@ -260,7 +280,7 @@ class FileIni {
 	* @return void
 	*/
 	public function append($section){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		$_section = $this->get($section);
 		$temp_body = [];
 		$i = 0;
@@ -288,7 +308,7 @@ class FileIni {
 	* @return void
 	*/
 	public function before($section, $before){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		$_section = $this->get($section);
 		$_before = $this->get($before);
 		$temp_body = [];
@@ -317,7 +337,7 @@ class FileIni {
 	* @return void
 	*/
 	public function after($section, $after){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		$_section = $this->get($section);
 		$_after = $this->get($after);
 		$temp_body = [];
@@ -345,7 +365,7 @@ class FileIni {
 	* @return boolean True if this section has another one after it, false if not.
 	*/
 	public function hasNext($section){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		$i = 0;
 		foreach ($body as $key => $value) {
 			if($key == $section){
@@ -365,7 +385,7 @@ class FileIni {
 	* @return boolean True if this section has another one before it, false if not.
 	*/
 	public function hasBefore($section){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		$i = 0;
 		foreach ($body as $key => $value) {
 			if($key == $section){
@@ -385,7 +405,7 @@ class FileIni {
 	* @return mixed[] Returns the following section from parsed file.
 	*/
 	public function getNext($section){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		if(!$this->hasNext($section)){
 			return false;
 		}
@@ -407,7 +427,7 @@ class FileIni {
 	* @return mixed[] Returns the previous section from parsed file.
 	*/
 	public function getBefore($section){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		if(!$this->hasBefore($section)){
 			return false;
 		}
@@ -448,7 +468,7 @@ class FileIni {
 	* @return string Returns the value of the target element
 	*/
 	public function getKey($section, $element){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		return $body[$section][$element];
 	}
 
@@ -487,7 +507,7 @@ class FileIni {
 	* @return void
 	*/
 	public function setKey($section, $element){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		foreach ($body as $key => $value) {
 			if($key == $section){
 				if(is_string($element)){
@@ -532,7 +552,7 @@ class FileIni {
 	* @return void
 	*/
 	public function writeInKey($section, $element, $content){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		foreach ($body as $key => $value) {
 			if($key == $section){
 				foreach ($value as $k => $v) {
@@ -611,7 +631,7 @@ class FileIni {
 	* @return void
 	*/
 	public function rewriteInKey($section, $element, $content){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		foreach ($body as $key => $value) {
 			if($key == $section){
 				foreach ($value as $k => $v) {
@@ -684,7 +704,7 @@ class FileIni {
 	* @return void
 	*/
 	public function rmKey($section, $element){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		unset($body[$section][$element]);
 		$this->updateFile($body);
 	}
@@ -698,7 +718,7 @@ class FileIni {
 	* @return boolean True if this element has another one after it, false if not.
 	*/
 	public function keyHasNext($section, $element){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		$i = 0;
 		foreach ($body as $key => $value) {
 			if($key == $section){
@@ -723,7 +743,7 @@ class FileIni {
 	* @return boolean True if this element has another one before it, false if not.
 	*/
 	public function keyHasBefore($section, $element){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		$i = 0;
 		foreach ($body as $key => $value) {
 			if($key == $section){
@@ -748,7 +768,7 @@ class FileIni {
 	* @return string Returns the following element from parsed file.
 	*/
 	public function getNextKey($section, $element){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		if(!$this->keyHasNext($section, $element)){
 			return false;
 		}
@@ -775,7 +795,7 @@ class FileIni {
 	* @return string Returns the previous element from parsed file.
 	*/
 	public function getBeforeKey($section, $element){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		if(!$this->keyHasBefore($section, $element)){
 			return false;
 		}
@@ -818,7 +838,7 @@ class FileIni {
 	* @return void
 	*/
 	public function beforeKey($section, $element, $before){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		$_element = $this->getKey($section, $element);
 		$_before = $this->getKey($section, $before);
 		$_section = $this->get($section);
@@ -857,7 +877,7 @@ class FileIni {
 	* @return void
 	*/
 	public function afterKey($section, $element, $after){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		$_element = $this->getKey($section, $element);
 		$_after = $this->getKey($section, $after);
 		$_section = $this->get($section);
@@ -895,7 +915,7 @@ class FileIni {
 	* @return void
 	*/
 	public function prependKey($section, $element){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		$i = 0;
 		foreach ($body as $key => $value) {
 			if($key == $section){
@@ -918,7 +938,7 @@ class FileIni {
 	* @return void
 	*/
 	public function appendKey($section, $element){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		$i = 0;
 		$j = sizeof($body);
 		foreach ($body as $key => $value) {
@@ -932,67 +952,6 @@ class FileIni {
 			}
 		}
 	}
-
-
-
-
-
-
-
-
-
-	// /**
-	// * Move an entire section at the top of this file.ini
-	// *
-	// * @param string $section The section's key of the section to move.
-	// *
-	// * @return void
-	// */
-	// public function prepend($section){
-	// 	$body = parse_ini_file($this->path, true);
-	// 	$_section = $this->get($section);
-	// 	$temp_body = [];
-	// 	$i = 0;
-	// 	foreach ($body as $key => $value) {
-	// 		if($key != $section){
-	// 			if($i == 0){
-	// 				$temp_body[$section] = $_section;
-	// 				$temp_body[$key] = $value;
-	// 			} else {
-	// 				$temp_body[$key] = $value;
-	// 			}
-	// 		}
-	// 		$i++;
-	// 	}
-	// 	$this->updateFile($temp_body);
-	// }
-
-	// *
-	// * Move an entire section at the bottom of this file.ini
-	// *
-	// * @param string $section The section's key of the section to move.
-	// *
-	// * @return void
-	
-	// public function append($section){
-	// 	$body = parse_ini_file($this->path, true);
-	// 	$_section = $this->get($section);
-	// 	$temp_body = [];
-	// 	$i = 0;
-	// 	$j = sizeof($body);
-	// 	foreach ($body as $key => $value) {
-	// 		if($key != $section){
-	// 			if($i == ($j - 1)){
-	// 				$temp_body[$key] = $value;
-	// 				$temp_body[$section] = $_section;
-	// 			} else {
-	// 				$temp_body[$key] = $value;
-	// 			}
-	// 		}
-	// 		$i++;
-	// 	}
-	// 	$this->updateFile($temp_body);
-	// }
 
 	#############################################################################
 	################ PRIVATE API ################################################
@@ -1037,7 +996,7 @@ class FileIni {
 	* returns -1;
 	*/
 	private function sectionIndex($section){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		$i = 0;
 		foreach ($body as $key => $value) {
 			if($key == $section){
@@ -1059,7 +1018,7 @@ class FileIni {
 	* returns -1;
 	*/
 	private function elementIndex($section, $element){
-		$body = parse_ini_file($this->path, true);
+		$body = $this->toArray();
 		$i = 0;
 		foreach ($body as $key => $value) {
 			if($key == $section){

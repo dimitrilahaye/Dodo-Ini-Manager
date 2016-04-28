@@ -12,6 +12,8 @@ And at least, manage your files.ini ! Create them, update their sections, etc.
     * [rename](#rename)
     * [copy](#copy)
     * [move](#move)
+    * [arrayTo](#arrayto)
+    * [toArray](#toarray)
     * [get](#get)
     * [set](#set)
     * [rewrite](#rewrite)
@@ -161,6 +163,48 @@ FileIni::move( string $path ): void
 |-----------|------|-------------|
 | `$path` | **string** | The new path for this file. |
 
+
+
+
+---
+
+### arrayTo
+
+Update entire file with an array
+
+```php
+FileIni::arrayTo( mixed[] $array ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$array` | **array<mixed,mixed>** | The array content to update the file. |
+
+
+
+
+---
+
+### toArray
+
+Get the parsed content of this file.
+
+```php
+FileIni::toArray(  ): mixed[]
+```
+
+
+
+
+
+**Return Value:**
+
+The parsed content of this file obtained with parse_ini_file() method.
 
 
 

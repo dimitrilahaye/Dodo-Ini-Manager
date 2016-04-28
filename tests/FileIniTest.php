@@ -71,6 +71,21 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
       $this->assertTrue(file_exists(MOVE_FOLDER_2 . __DS__ . "non_existing_folder" . __DS__ . "file.ini"));
   }
 
+  public function testToArray(){
+    $array = $this->fileIni->toArray();
+    $this->assertEquals(sizeof($array), 3);
+  }
+
+  public function testArrayTo(){
+    $fileIni = new FileIni(TRUE_INI_FILE);
+    $array = array("section 1" => array("element 1" => "content", "element 2" => "content"),
+      "section 2" => array("element 1" => "content", "element 2" => "content"),
+      "section 3" => array("element 1" => "content", "element 2" => "content"));
+    $fileIni->arrayTo($array);
+    $_array = $fileIni->toArray();
+    $this->assertEquals(sizeof($_array), 3);
+  }
+
   public function testReturnSectionFromFileIni(){
     $section = $this->fileIni->get("php");
     $this->assertEquals($section, array("ide" => "phpstorm", "framework" => "symfony", "orm" => "doctrine"));
@@ -374,11 +389,6 @@ TODO : function set($section, array($element, array($content,...)));
 TODO : function setKey($section, array($element, array($content,...)));
 TODO : function writeInKey($section, $element, array($content,...));
 TODO : function rewriteInKey($section, $element, array($content,...));
-
-TODO : arrayTo
-TODO : jsonTo
-TODO : toArray
-TODO : toJson
 
 TODO : check exception (element or section of file does not exist)
 
