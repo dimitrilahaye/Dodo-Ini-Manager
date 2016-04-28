@@ -43,6 +43,8 @@ And at least, manage your files.ini ! Create them, update their sections, etc.
     * [prependKey](#prependkey)
     * [appendKey](#appendkey)
 
+* [Coming Soon](#-coming-soon)
+
 ## FileIni
 
 General class for DodoIniManager. Provides all the methods to :
