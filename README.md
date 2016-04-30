@@ -14,6 +14,8 @@ And at least, manage your files.ini ! Create them, update their sections, etc.
     * [move](#move)
     * [arrayTo](#arrayto)
     * [toArray](#toarray)
+    * [jsonTo](#jsonto)
+    * [toJson](#tojson)
     * [get](#get)
     * [set](#set)
     * [rewrite](#rewrite)
@@ -56,7 +58,7 @@ General class for DodoIniManager. Provides all the methods to :
 
 
 
-* Full name: \DodoIniManager\Classes\FileIni
+* Full name: \DodoPhpLab\DodoIniManager\Classes\FileIni
 
 
 ### __construct
@@ -80,7 +82,7 @@ FileIni::__construct( string $path ): void
 
 **See Also:**
 
-* \DodoIniManager\Classes\DodoIniManager\Classes\FileIni::createFile() - For the creation of the file.ini.
+* \DodoPhpLab\DodoIniManager\Classes\DodoIniManager\Classes\FileIni::createFile() - For the creation of the file.ini.
 
 ---
 
@@ -207,6 +209,48 @@ FileIni::toArray(  ): mixed[]
 **Return Value:**
 
 The parsed content of this file obtained with parse_ini_file() method.
+
+
+
+---
+
+### jsonTo
+
+Update entire file with a json array
+
+```php
+FileIni::jsonTo( \DodoPhpLab\DodoIniManager\Classes\json $json ): void
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$json` | **\DodoPhpLab\DodoIniManager\Classes\json** | The json array content to update the file. |
+
+
+
+
+---
+
+### toJson
+
+Get the parsed content of this file in json array format.
+
+```php
+FileIni::toJson(  ): \DodoPhpLab\DodoIniManager\Classes\json
+```
+
+
+
+
+
+**Return Value:**
+
+The parsed content of this file obtained in json array format.
 
 
 

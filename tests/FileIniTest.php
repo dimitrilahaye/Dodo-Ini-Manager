@@ -1,6 +1,6 @@
 <?php 
 
-use DodoIniManager\Classes\FileIni as FileIni;
+use DodoPhpLab\DodoIniManager\Classes\FileIni;
 
 define("__DS__", DIRECTORY_SEPARATOR);
 define("COPY_FOLDER", __DIR__ . __DS__ . "folder_for_copy");
@@ -384,6 +384,19 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
     }
   }
 
+  public function testJsonToAndToJson(){
+    $body = array("php" => array("ide" => "phpstorm", "framework" => "symfony", "orm" => "doctrine"),
+        "java" => array("ide" => "eclipse", "framework" => "jee", "orm" => "hibernate"),
+        "ruby" => array("ide" => "rubymine", "framework" => "ruby on rails", "orm" => "ar"));
+    $json = '{"php":{"ide":"phpstorm","framework":"symfony","orm":"doctrine"},"java":{"ide":"eclipse","framework":"jee","orm":"hibernate"},"ruby":{"ide":"rubymine","framework":"ruby on rails","orm":"ar"}}';
+    $json_array = json_decode($json, true);
+    $this->fileIni->jsonTo($json);
+    $test_array = $this->fileIni->toArray();
+    $this->assertEquals($json_array, $test_array);
+    $json_test = $this->fileIni->toJson();
+    $this->assertEquals($json, $json_test);
+  }
+
   public function tearDown() {
     if(file_exists(COPY_FOLDER . __DS__ . "file_1.ini") && file_exists(COPY_FOLDER . __DS__ . "file_2.ini")){
       unlink(COPY_FOLDER . __DS__ . "file_1.ini");
@@ -421,16 +434,30 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
       rmdir(__DIR__ . __DS__ . "folder");
     }
   }
+
+  public static function tearDownAfterClass() {
+    $resetAsset = new FileIni(ASSET_FILE);
+      $body = array("php" => array("ide" => "phpstorm", "framework" => "symfony", "orm" => "doctrine"),
+        "java" => array("ide" => "eclipse", "framework" => "jee", "orm" => "hibernate"),
+        "ruby" => array("ide" => "rubymine", "framework" => "ruby on rails", "orm" => "ar"));
+      $resetAsset->arrayTo($body);
+  }
   
 }
 
 /*
 
-TODO : function set($section, array($element, array($content,...)));
-TODO : function setKey($section, array($element, array($content,...)));
-TODO : function writeInKey($section, $element, array($content,...));
-TODO : function rewriteInKey($section, $element, array($content,...));
+###### TESTS ######
 
+###### METHODS IMPROVEMENTS ######
+TODO : manage the sub-arrays ==>
+  [section]
+  element[] = "foo"
+  element[] = "bar"
+  ;is like :
+  array("section" => array("element" => array("foo", "bar")));
+
+###### EXCEPTIONS HANDLER ######
 TODO : check exception (element or section of file does not exist)
 ==> check if file, section and element exist !
 ==> check format of array for arrayTo method

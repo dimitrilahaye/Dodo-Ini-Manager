@@ -1,6 +1,6 @@
 <?php
 
-namespace DodoIniManager\Classes;
+namespace DodoPhpLab\DodoIniManager\Classes;
 
 /**
 * General class for DodoIniManager. Provides all the methods to :
@@ -134,6 +134,28 @@ class FileIni {
 	*/
 	public function toArray(){
 		return parse_ini_file($this->path, true);
+	}
+
+	/**
+	* Update entire file with a json array
+	*
+	* @param json $json The json array content to update the file.
+	*
+	* @return void
+	*/
+	public function jsonTo($json){
+		$array = json_decode($json, true);
+		$this->arrayTo($array);
+	}
+
+	/**
+	* Get the parsed content of this file in json array format.
+	*
+	* @return json The parsed content of this file obtained in json array format.
+	*/
+	public function toJson(){
+		$array = $this->toArray();
+		return json_encode($array);
 	}
 
 	#############################################################################
