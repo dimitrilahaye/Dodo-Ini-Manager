@@ -1,4 +1,4 @@
 tests/report
 vendor
 composer.lock
-docs
+doc.sh
