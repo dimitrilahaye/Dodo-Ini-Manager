@@ -946,8 +946,6 @@ FileIni::appendKey( string $section, string $element ): void
 >
 > - Add sample code in README.md
 >
-> - Add sub-array management
->
 > - Add new cool methods : suggestions are welcome and usefull ;)
 
 --------
