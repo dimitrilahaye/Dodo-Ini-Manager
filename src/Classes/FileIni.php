@@ -39,7 +39,7 @@ class FileIni {
 
 	/**
 	* Method constructor. When a new FileIni object is instantiated, if file doesn't exists, we create it.
-	* @see DodoIniManager\Classes\FileIni::createFile()	For the creation of the file.ini.
+	* @see FileIni::createFile()	For the creation of the file.ini.
 	*
 	* @param string $path File's path for this FileIni object.
 	*
@@ -139,7 +139,7 @@ class FileIni {
 	/**
 	* Update entire file with a json array
 	*
-	* @param json $json The json array content to update the file.
+	* @param string $json The json array content to update the file.
 	*
 	* @return void
 	*/
@@ -151,7 +151,7 @@ class FileIni {
 	/**
 	* Get the parsed content of this file in json array format.
 	*
-	* @return json The parsed content of this file obtained in json array format.
+	* @return string The parsed content of this file obtained in json array format.
 	*/
 	public function toJson(){
 		$array = $this->toArray();

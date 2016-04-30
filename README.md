@@ -82,7 +82,7 @@ FileIni::__construct( string $path ): void
 
 **See Also:**
 
-* \DodoPhpLab\DodoIniManager\Classes\DodoIniManager\Classes\FileIni::createFile() - For the creation of the file.ini.
+* \DodoPhpLab\DodoIniManager\Classes\FileIni::createFile() - For the creation of the file.ini.
 
 ---
 
@@ -219,7 +219,7 @@ The parsed content of this file obtained with parse_ini_file() method.
 Update entire file with a json array
 
 ```php
-FileIni::jsonTo( \DodoPhpLab\DodoIniManager\Classes\json $json ): void
+FileIni::jsonTo( string $json ): void
 ```
 
 
@@ -229,7 +229,7 @@ FileIni::jsonTo( \DodoPhpLab\DodoIniManager\Classes\json $json ): void
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `$json` | **\DodoPhpLab\DodoIniManager\Classes\json** | The json array content to update the file. |
+| `$json` | **string** | The json array content to update the file. |
 
 
 
