@@ -18,6 +18,14 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
 
   private $fileIni;
 
+  public static function setUpBeforeClass() {
+    $configAsset = new FileIni(ASSET_FILE);
+      $body = array("php" => array("ide" => "phpstorm", "framework" => "symfony", "orm" => "doctrine"),
+        "java" => array("ide" => "eclipse", "framework" => "jee", "orm" => "hibernate"),
+        "ruby" => array("ide" => "rubymine", "framework" => "ruby on rails", "orm" => "ar"));
+      $configAsset->arrayTo($body);
+  }
+
   public function setUp() {
       $this->fileIni = new FileIni(ASSET_FILE);
       mkdir(COPY_FOLDER, 0700);
@@ -397,6 +405,16 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals($json, $json_test);
   }
 
+  public function testSubKeyAsArray(){
+    $body = array("php" => array("ide" => "phpstorm", "framework" => "symfony", "orm" => "doctrine"),
+    "java" => array("ide" => "eclipse", "framework" => "jee", "orm" => "hibernate"),
+    "ruby" => array("ide" => "rubymine", "framework" => "ruby on rails", "orm" => "ar"),
+    "scala" => array("ide" => array("scala Eclipse", "scala Netbeans", "scala IntelliJ"), "framework" => "Play Framework", "orm" => "squeryl"));
+    $this->fileIni->arrayTo($body);
+    $element = $this->fileIni->getKey("scala", "ide");
+    $this->assertTrue(is_array($element));
+  }
+
   public function tearDown() {
     if(file_exists(COPY_FOLDER . __DS__ . "file_1.ini") && file_exists(COPY_FOLDER . __DS__ . "file_2.ini")){
       unlink(COPY_FOLDER . __DS__ . "file_1.ini");
@@ -436,11 +454,9 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
   }
 
   public static function tearDownAfterClass() {
-    $resetAsset = new FileIni(ASSET_FILE);
-      $body = array("php" => array("ide" => "phpstorm", "framework" => "symfony", "orm" => "doctrine"),
-        "java" => array("ide" => "eclipse", "framework" => "jee", "orm" => "hibernate"),
-        "ruby" => array("ide" => "rubymine", "framework" => "ruby on rails", "orm" => "ar"));
-      $resetAsset->arrayTo($body);
+    if(file_exists(ASSET_FILE)){  
+      unlink(ASSET_FILE);
+    }
   }
   
 }
@@ -450,12 +466,6 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
 ###### TESTS ######
 
 ###### METHODS IMPROVEMENTS ######
-TODO : manage the sub-arrays ==>
-  [section]
-  element[] = "foo"
-  element[] = "bar"
-  ;is like :
-  array("section" => array("element" => array("foo", "bar")));
 
 ###### EXCEPTIONS HANDLER ######
 TODO : check exception (element or section of file does not exist)

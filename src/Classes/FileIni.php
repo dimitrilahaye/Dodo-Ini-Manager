@@ -12,10 +12,10 @@ namespace DodoPhpLab\DodoIniManager\Classes;
 *
 * @author Dimitri Lahaye <contact@dimitrilahaye.net>
 * @license http://www.dbad-license.org/ DBAD Public License
-* @version 0.1.5-beta
+* @version 0.1.6-beta
 *
-* @package DodoIniManager
-* @subpackage Classes
+* @package DodoPhpLab
+* @subpackage DodoIniManager\Classes
 */
 class FileIni {
 
@@ -1058,7 +1058,13 @@ class FileIni {
 				foreach ($value as $k => $v) {
 				   	end($value);
 					$lastKey = key($value);
-					$content .= $k . " = " . "\"" . $v . "\"\n";
+					if(is_array($v)){
+						foreach ($v as $_v) {
+						$content .= $k . "[] = " . "\"" . $_v . "\"\n";
+						}
+					} else {
+						$content .= $k . " = " . "\"" . $v . "\"\n";
+					}
 					if($k == $lastKey){
 						$content .= "\n";
 					}
