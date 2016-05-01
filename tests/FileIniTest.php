@@ -175,8 +175,8 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testSectionHasBefore(){
-    $this->assertTrue($this->fileIni->hasBefore("ruby"));
-    $this->assertFalse($this->fileIni->hasBefore("php"));
+    $this->assertTrue($this->fileIni->hasPrevious("ruby"));
+    $this->assertFalse($this->fileIni->hasPrevious("php"));
   }
 
   public function testSectionGetNext(){
@@ -270,8 +270,8 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testElementHasBefore(){
-    $this->assertTrue($this->fileIni->keyHasBefore("bash", "orm"));
-    $this->assertFalse($this->fileIni->keyHasBefore("bash", "ide"));
+    $this->assertTrue($this->fileIni->keyHasPrevious("bash", "orm"));
+    $this->assertFalse($this->fileIni->keyHasPrevious("bash", "ide"));
   }
 
   public function testElementGetNext(){

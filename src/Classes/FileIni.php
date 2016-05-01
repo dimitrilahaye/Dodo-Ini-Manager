@@ -12,7 +12,7 @@ namespace DodoPhpLab\DodoIniManager\Classes;
 *
 * @author Dimitri Lahaye <contact@dimitrilahaye.net>
 * @license http://www.dbad-license.org/ DBAD Public License
-* @version 0.1.7-beta
+* @version 0.1.7.1-beta
 *
 * @package DodoPhpLab
 * @subpackage DodoIniManager\Classes
@@ -393,7 +393,7 @@ class FileIni {
 	*
 	* @return boolean True if this section has another one before it, false if not.
 	*/
-	public function hasBefore($section){
+	public function hasPrevious($section){
 		$body = $this->toArray();
 		$i = 0;
 		foreach ($body as $key => $value) {
@@ -437,7 +437,7 @@ class FileIni {
 	*/
 	public function getPrevious($section){
 		$body = $this->toArray();
-		if(!$this->hasBefore($section)){
+		if(!$this->hasPrevious($section)){
 			return false;
 		}
 		$index = $this->sectionIndex($section);
@@ -751,7 +751,7 @@ class FileIni {
 	*
 	* @return boolean True if this element has another one before it, false if not.
 	*/
-	public function keyHasBefore($section, $element){
+	public function keyHasPrevious($section, $element){
 		$body = $this->toArray();
 		$i = 0;
 		foreach ($body as $key => $value) {
@@ -805,7 +805,7 @@ class FileIni {
 	*/
 	public function getPreviousKey($section, $element){
 		$body = $this->toArray();
-		if(!$this->keyHasBefore($section, $element)){
+		if(!$this->keyHasPrevious($section, $element)){
 			return false;
 		}
 		$index = $this->elementIndex($section, $element);

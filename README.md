@@ -25,7 +25,7 @@ And at least, manage your files.ini ! Create them, update their sections, etc.
     * [before](#before)
     * [after](#after)
     * [hasNext](#hasnext)
-    * [hasBefore](#hasbefore)
+    * [hasPrevious](#hasprevious)
     * [getNext](#getnext)
     * [getPrevious](#getprevious)
     * [getKey](#getkey)
@@ -36,7 +36,7 @@ And at least, manage your files.ini ! Create them, update their sections, etc.
     * [rmInKey](#rminkey)
     * [rmKey](#rmkey)
     * [keyHasNext](#keyhasnext)
-    * [keyHasBefore](#keyhasbefore)
+    * [keyHasPrevious](#keyhasprevious)
     * [getNextKey](#getnextkey)
     * [getPreviousKey](#getpreviouskey)
     * [moveKey](#movekey)
@@ -466,12 +466,12 @@ True if this section has another one after it, false if not.
 
 ---
 
-### hasBefore
+### hasPrevious
 
 Check if this section has another section before it.
 
 ```php
-FileIni::hasBefore( string $section ): boolean
+FileIni::hasPrevious( string $section ): boolean
 ```
 
 
@@ -741,12 +741,12 @@ True if this element has another one after it, false if not.
 
 ---
 
-### keyHasBefore
+### keyHasPrevious
 
 Check if this section's element has another element before it.
 
 ```php
-FileIni::keyHasBefore( string $section, string $element ): boolean
+FileIni::keyHasPrevious( string $section, string $element ): boolean
 ```
 
 
