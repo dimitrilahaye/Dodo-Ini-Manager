@@ -27,7 +27,7 @@ And at least, manage your files.ini ! Create them, update their sections, etc.
     * [hasNext](#hasnext)
     * [hasBefore](#hasbefore)
     * [getNext](#getnext)
-    * [getBefore](#getbefore)
+    * [getPrevious](#getprevious)
     * [getKey](#getkey)
     * [setKey](#setkey)
     * [writeInKey](#writeinkey)
@@ -38,14 +38,14 @@ And at least, manage your files.ini ! Create them, update their sections, etc.
     * [keyHasNext](#keyhasnext)
     * [keyHasBefore](#keyhasbefore)
     * [getNextKey](#getnextkey)
-    * [getBeforeKey](#getbeforekey)
+    * [getPreviousKey](#getpreviouskey)
     * [moveKey](#movekey)
     * [beforeKey](#beforekey)
     * [afterKey](#afterkey)
     * [prependKey](#prependkey)
     * [appendKey](#appendkey)
 
-* [Coming Soon](#-coming-soon)
+* [Coming Soon](#coming-soon)
 
 ## FileIni
 
@@ -518,12 +518,12 @@ Returns the following section from parsed file.
 
 ---
 
-### getBefore
+### getPrevious
 
 Get the next section before the section'key passed in argument.
 
 ```php
-FileIni::getBefore( string $section ): mixed[]
+FileIni::getPrevious( string $section ): mixed[]
 ```
 
 
@@ -795,12 +795,12 @@ Returns the following element from parsed file.
 
 ---
 
-### getBeforeKey
+### getPreviousKey
 
 Get the element before the element'key passed in argument.
 
 ```php
-FileIni::getBeforeKey( string $section, string $element ): string
+FileIni::getPreviousKey( string $section, string $element ): string
 ```
 
 

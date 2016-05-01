@@ -181,24 +181,30 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
 
   public function testSectionGetNext(){
     $section = $this->fileIni->getNext("ruby");
-    $this->assertTrue(array_key_exists("ide", $section));
-    $this->assertTrue(array_key_exists("framework", $section));
-    $this->assertTrue(array_key_exists("orm", $section));
-    $this->assertEquals("rubymine", $section["ide"]);
-    $this->assertEquals("ruby on rails", $section["framework"]);
-    $this->assertEquals("ar", $section["orm"]);
+    $this->assertTrue(array_key_exists("node", $section));
+    foreach ($section as $key => $value) {
+      $this->assertTrue(array_key_exists("ide", $value));
+      $this->assertTrue(array_key_exists("framework", $value));
+      $this->assertTrue(array_key_exists("orm", $value));
+      $this->assertEquals("webstorm", $value["ide"]);
+      $this->assertEquals("express", $value["framework"]);
+      $this->assertEquals("mongoose", $value["orm"]);
+    }
     $this->assertFalse($this->fileIni->getNext("js"));
   }
 
   public function testSectionGetBefore(){
-    $section = $this->fileIni->getBefore("java");
-    $this->assertTrue(array_key_exists("ide", $section));
-    $this->assertTrue(array_key_exists("framework", $section));
-    $this->assertTrue(array_key_exists("orm", $section));
-    $this->assertEquals("phpstorm", $section["ide"]);
-    $this->assertEquals("symfony", $section["framework"]);
-    $this->assertEquals("doctrine", $section["orm"]);
-    $this->assertFalse($this->fileIni->getBefore("php"));
+    $section = $this->fileIni->getPrevious("java");
+    $this->assertTrue(array_key_exists("php", $section));
+    foreach ($section as $key => $value) {
+      $this->assertTrue(array_key_exists("ide", $value));
+      $this->assertTrue(array_key_exists("framework", $value));
+      $this->assertTrue(array_key_exists("orm", $value));
+      $this->assertEquals("phpstorm", $value["ide"]);
+      $this->assertEquals("symfony", $value["framework"]);
+      $this->assertEquals("doctrine", $value["orm"]);
+    }
+    $this->assertFalse($this->fileIni->getPrevious("php"));
   }
 
   public function testGetElement(){
@@ -280,9 +286,9 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testElementGetBefore(){
-    $element = $this->fileIni->getBeforeKey("bash", "orm");
+    $element = $this->fileIni->getPreviousKey("bash", "orm");
     $this->assertEquals(array("framework" => "file system"), $element);
-    $this->assertFalse($this->fileIni->getBeforeKey("java", "ide"));
+    $this->assertFalse($this->fileIni->getPreviousKey("java", "ide"));
   }
 
   public function testChangeElementSection(){
