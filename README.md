@@ -16,6 +16,7 @@ And at least, manage your files.ini ! Create them, update their sections, etc.
     * [toArray](#toarray)
     * [jsonTo](#jsonto)
     * [toJson](#tojson)
+    * [hasSection](#hassection)
     * [get](#get)
     * [set](#set)
     * [rewrite](#rewrite)
@@ -28,6 +29,7 @@ And at least, manage your files.ini ! Create them, update their sections, etc.
     * [hasPrevious](#hasprevious)
     * [getNext](#getnext)
     * [getPrevious](#getprevious)
+    * [hasKey](#haskey)
     * [getKey](#getkey)
     * [setKey](#setkey)
     * [writeInKey](#writeinkey)
@@ -251,6 +253,32 @@ FileIni::toJson(  ): \DodoPhpLab\DodoIniManager\Classes\json
 **Return Value:**
 
 The parsed content of this file obtained in json array format.
+
+
+
+---
+
+### hasSection
+
+Check if this file.ini has a section specified by the name passed in argument.
+
+```php
+FileIni::hasSection( string $section ): boolean
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$section` | **string** | The name of the searched section. |
+
+
+**Return Value:**
+
+True if the section exists in file.ini, false if not.
 
 
 
@@ -539,6 +567,33 @@ FileIni::getPrevious( string $section ): mixed[]
 **Return Value:**
 
 Returns the previous section from parsed file.
+
+
+
+---
+
+### hasKey
+
+Check if the target section has a key value specified by the name passed in argument.
+
+```php
+FileIni::hasKey( string $section, string $element ): boolean
+```
+
+
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$section` | **string** | The name of the section where to search the key value. |
+| `$element` | **string** | The name of the searched key value. |
+
+
+**Return Value:**
+
+True if key value exists in section, false if not.
 
 
 

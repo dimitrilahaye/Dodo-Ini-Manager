@@ -12,11 +12,12 @@ namespace DodoPhpLab\DodoIniManager\Classes;
 *
 * @author Dimitri Lahaye <contact@dimitrilahaye.net>
 * @license http://www.dbad-license.org/ DBAD Public License
-* @version 0.1.7.1-beta
+* @version 0.1.8-beta
 *
 * @package DodoPhpLab
 * @subpackage DodoIniManager\Classes
 */
+
 class FileIni {
 
 	/**
@@ -156,6 +157,20 @@ class FileIni {
 	public function toJson(){
 		$array = $this->toArray();
 		return json_encode($array);
+	}
+
+	/**
+	* Check if this file.ini has a section specified by the name passed in argument.
+	*
+	* @param string $section The name of the searched section.
+	*
+	* @return boolean True if the section exists in file.ini, false if not.
+	*/
+	public function hasSection($section){
+		$array = $this->toArray();
+		if(array_key_exists($section, $array)){
+			return true;
+		} return false;
 	}
 
 	#############################################################################
@@ -447,6 +462,23 @@ class FileIni {
 				return array($key => $body[$key]);
 			}
 			$i++;
+		} return false;
+	}
+
+	/**
+	* Check if the target section has a key value specified by the name passed in argument.
+	*
+	* @param string $section The name of the section where to search the key value.
+	* @param string $element The name of the searched key value.
+	*
+	* @return boolean True if key value exists in section, false if not.
+	*/
+	public function hasKey($section, $element){
+		$array = $this->toArray();
+		if(array_key_exists($section, $array)){
+			if(array_key_exists($element, $array[$section])){
+				return true;
+			} return false;
 		} return false;
 	}
 

@@ -94,6 +94,16 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(sizeof($_array), 3);
   }
 
+  public function testHasSection(){
+    $this->assertTrue($this->fileIni->hasSection("php"));
+    $this->assertFalse($this->fileIni->hasSection("cobol"));
+  }
+
+  public function testHasKey(){
+    $this->assertTrue($this->fileIni->hasKey("php", "orm"));
+    $this->assertFalse($this->fileIni->hasKey("php", "debugger"));
+  }
+
   public function testReturnSectionFromFileIni(){
     $section = $this->fileIni->get("php");
     $this->assertEquals($section, array("ide" => "phpstorm", "framework" => "symfony", "orm" => "doctrine"));
@@ -475,7 +485,7 @@ class FileIniTest extends PHPUnit_Framework_TestCase {
 
 ###### EXCEPTIONS HANDLER ######
 TODO : check exception (element or section of file does not exist)
-==> check if file, section and element exist !
-==> check format of array for arrayTo method
+==> check if section and element exist !
+==> check format of array for arrayTo method (no more 3 levels of arrays)
 
 */
